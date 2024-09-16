@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const tasks_1 = __importDefault(require("./router/tasks"));
 const user_1 = __importDefault(require("./router/user"));
+const express_graphql_1 = require("express-graphql");
+const schema_1 = require("./graphql/schema");
 const connect_1 = __importDefault(require("./db/connect"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -18,4 +20,8 @@ app.get("/", (req, res) => {
 });
 app.use("/tasks", tasks_1.default);
 app.use("/users", user_1.default);
+app.use('/graphql', (0, express_graphql_1.graphqlHTTP)({
+    schema: schema_1.schema,
+    graphiql: true
+}));
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

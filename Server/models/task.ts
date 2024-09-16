@@ -1,6 +1,6 @@
 //taske model in typescript
 import { Schema, model, Document } from "mongoose";
-export interface Task{
+export interface ITask extends Document{
     id: string;
     title: string;
     description: string;
@@ -10,7 +10,7 @@ export interface Task{
     finishedBy:Date;
 }
 
-const TaskSchema = new Schema<Task>({
+const TaskSchema = new Schema<ITask>({
     title: { type: String, required: true },
     description: { type: String, required: true },
     status: { type: String,
@@ -22,4 +22,4 @@ const TaskSchema = new Schema<Task>({
     createdAt: { type: Date, default: Date.now },
     finishedBy: { type: Date },
 })
-export const Task= model<Task>('Task', TaskSchema)
+export const Task= model<ITask>('Task', TaskSchema)
