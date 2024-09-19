@@ -15,8 +15,8 @@ export const taskById = async (id: string) => {
 };
 
 //Update task
-export const updateTask = async (id: string, task: string) => {
-  return await Task.findByIdAndUpdate(id, { task }, { new: true });
+export const updateTask = async (id: string, task: any) => {
+  return await Task.findByIdAndUpdate(id, task, { new: true, runValidators:true });
 };
 
 //Delete task
