@@ -11,7 +11,13 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "concurrently": "^9.0.1",
     "nodemon": "^3.1.5"
+  },
+  "dependencies": {
+    "@types/mongoose": "^5.11.97",
+    "bcrypt": "^5.1.1",
+    "mongoose": "^8.6.3"
   }
 }

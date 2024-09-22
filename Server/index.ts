@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
 import taskRoutes from "./router/tasks";
 import userRouter from "./router/user";
+import projectRoutes from "./router/project";
 import { graphqlHTTP } from "express-graphql";
-import { schema } from "./graphql/schema";
+import {schema} from "./graphql/schema";
 import connectDB from "./db/connect";
 import dotenv from "dotenv";
 
@@ -11,21 +12,19 @@ const app = express();
 app.use(express.json());
 connectDB();
 
-const PORT: string | number = process.env.PORT || 3000;
+const PORT:string | number = process.env.PORT || 3000;
 
 app.get("/", (req: Request, res: Response): void => {
-  res.send("Hello from Express server");
-});
+    res.send("Hello from Express server");
+})
 
 app.use("/tasks", taskRoutes);
 app.use("/users", userRouter);
+app.use("/projects", projectRoutes);
 
-app.use(
-  "/graphql",
-  graphqlHTTP({
+app.use('/graphql',graphqlHTTP({
     schema,
-    graphiql: true,
-  })
-);
+    graphiql:true
+}));
 
-app.listen(PORT, (): void => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, ():void => console.log(`Server running on port ${PORT}`));

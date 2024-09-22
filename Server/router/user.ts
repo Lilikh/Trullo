@@ -38,11 +38,12 @@ router.post("/", async (req: Request, res: Response) => {
     const createedUser = await createUser(req.body);
     res.status(201).json(createedUser);
   } catch (error) {
-    res
-      .status(400)
-      .json({
-        error: error instanceof Error ? error.message : "An unkonw error",
-      });
+    if ((error as any).code === 11000) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+    res.status(400).json({
+      error: error instanceof Error ? error.message : "An unkonw error",
+    });
   }
 });
 router.put("/:id", async (req: Request, res: Response) => {
@@ -50,11 +51,9 @@ router.put("/:id", async (req: Request, res: Response) => {
     const updatedUser = await updateUser(req.params.id, req.body);
     res.status(200).json(updatedUser);
   } catch (error) {
-    res
-      .status(400)
-      .json({
-        error: error instanceof Error ? error.message : "An unkonw error",
-      });
+    res.status(400).json({
+      error: error instanceof Error ? error.message : "An unkonw error",
+    });
   }
 });
 
@@ -66,11 +65,9 @@ router.delete("/:id", async (req: Request, res: Response) => {
     }
     res.status(200).json(deletedUser);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: error instanceof Error ? error.message : "An unkonw error",
-      });
+    res.status(500).json({
+      error: error instanceof Error ? error.message : "An unkonw error",
+    });
   }
 });
 export default router;
