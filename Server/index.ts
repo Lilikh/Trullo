@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import taskRoutes from "./router/tasks";
 import userRouter from "./router/user";
 import projectRoutes from "./router/project";
+import authRutes from "./router/autheRoute"
 import { graphqlHTTP } from "express-graphql";
 import {schema} from "./graphql/schema";
 import connectDB from "./db/connect";
@@ -21,7 +22,7 @@ app.get("/", (req: Request, res: Response): void => {
 app.use("/tasks", taskRoutes);
 app.use("/users", userRouter);
 app.use("/projects", projectRoutes);
-
+app.use("/auth", authRutes);
 app.use('/graphql',graphqlHTTP({
     schema,
     graphiql:true
